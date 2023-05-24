@@ -35,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<Integer> getAllEmployeesWithSalaryHigherThenAvg() {
+    public List<Employee> getAllEmployeesWithSalaryHigherThenAvg() {
         return employeeRepository.getAllEmployeesWithSalaryHigherThenAvg();
     }
 }

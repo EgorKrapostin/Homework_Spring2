@@ -53,11 +53,10 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<Integer> getAllEmployeesWithSalaryHigherThenAvg() {
+    public List<Employee> getAllEmployeesWithSalaryHigherThenAvg() {
 
-        List<Integer> list = employees.stream()
-                .map(Employee::getSalary)
-                .filter(integer -> integer > getSalarySum() / employees.size())
+        List<Employee> list = employees.stream()
+                .filter(employee -> employee.getSalary() > getSalarySum() / employees.size())
                 .toList();
         return list;
     }

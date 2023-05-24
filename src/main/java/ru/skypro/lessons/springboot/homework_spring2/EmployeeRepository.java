@@ -13,5 +13,5 @@ public interface EmployeeRepository {
 
     Optional<Integer> getMaxSalary();
 
-    List<Integer> getAllEmployeesWithSalaryHigherThenAvg();
+    List<Employee> getAllEmployeesWithSalaryHigherThenAvg();
 }

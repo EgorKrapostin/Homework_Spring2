@@ -17,28 +17,28 @@ public class EmployeeControler {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("salary/all")
+    @GetMapping("/salary/all")
     public List<Employee> showAll() {
         return employeeService.getAllEmployees();
     }
 
-    @GetMapping("salary/sum")
+    @GetMapping("/salary/sum")
     public Integer showSum() {
         return employeeService.getSalarySum();
     }
 
-    @GetMapping("salary/min")
+    @GetMapping("/salary/min")
     public Optional<Integer> showMin() {
         return employeeService.getMinSalary();
     }
 
-    @GetMapping("salary/max")
+    @GetMapping("/salary/max")
     public Optional<Integer> showMax() {
         return employeeService.getMaxSalary();
     }
 
-    @GetMapping("salary/higherThenAvg")
-    public List<Integer> showHigherThenAvg() {
+    @GetMapping("/salary/higherThenAvg")
+    public List<Employee> showHigherThenAvg() {
         return employeeService.getAllEmployeesWithSalaryHigherThenAvg();
     }
 }
