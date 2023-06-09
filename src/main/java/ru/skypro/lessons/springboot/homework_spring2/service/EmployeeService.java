@@ -1,13 +1,14 @@
 package ru.skypro.lessons.springboot.homework_spring2.service;
 
-import ru.skypro.lessons.springboot.homework_spring2.Employee;
+import ru.skypro.lessons.springboot.homework_spring2.model.Employee;
+import ru.skypro.lessons.springboot.homework_spring2.DTO.EmployeeDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeService {
 
-    List<Employee> getAllEmployees();
+    List<EmployeeDTO> getAllEmployees();
 
     Integer getSalarySum();
 
@@ -15,15 +16,17 @@ public interface EmployeeService {
 
     Optional<Integer> getMaxSalary();
 
-    List<Employee> getAllEmployeesWithSalaryHigherThenAvg();
+    List<EmployeeDTO> getAllEmployeesWithSalaryHigherThenAvg();
 
-    List<Employee> addEmployee(Employee employee);
+    void addEmployee(Employee employee);
 
-    List<Employee> updateEmployee(Employee employee, int id);
+    void updateEmployee(Employee employee);
 
-    List<Employee> getEmployeeById(int id);
+    List<EmployeeDTO>  getEmployeeById(Integer id);
 
-    List<Employee> deleteEmployeeById(int id);
+    void deleteEmployeeById(Integer id);
 
-    List<Employee> getAllEmployeesWithSalaryHigherThan(int salary);
+    List<EmployeeDTO> getAllEmployeesWithSalaryHigherThan(int salary);
+
+    List<EmployeeDTO> getAllEmployeesWithMatchingPosition(String position);
 }
