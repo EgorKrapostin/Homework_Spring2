@@ -1,11 +1,15 @@
 package ru.skypro.lessons.springboot.homework_spring2.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.skypro.lessons.springboot.homework_spring2.Employee;
+import ru.skypro.lessons.springboot.homework_spring2.model.Employee;
+import ru.skypro.lessons.springboot.homework_spring2.DTO.EmployeeDTO;
 import ru.skypro.lessons.springboot.homework_spring2.repository.EmployeeRepository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -17,8 +21,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.getAllEmployees();
+    public List<EmployeeDTO> getAllEmployees() {
+
+        return employeeRepository.getAllEmployees().stream().
+                map(EmployeeDTO::fromEmployee)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -37,34 +44,66 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<Employee> getAllEmployeesWithSalaryHigherThenAvg() {
-        return employeeRepository.getAllEmployeesWithSalaryHigherThenAvg();
+    public List<EmployeeDTO> getAllEmployeesWithSalaryHigherThenAvg() {
+        return employeeRepository.getAllEmployeesWithSalaryHigherThenAvg().stream()
+                .map(EmployeeDTO::fromEmployee)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Employee> addEmployee(Employee employee) {
-        return employeeRepository.addEmployee(employee);
+    public void addEmployee(Employee employee) {
+         employeeRepository.save(employee);
 
     }
 
     @Override
-    public List<Employee> updateEmployee(Employee employee, int id) {
-        return employeeRepository.updateEmployee(employee,id);
+    public void updateEmployee(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    public List<EmployeeDTO> getEmployeeById(Integer id) {
+
+        List<EmployeeDTO>
+                optionalEmployeeDTO =
+                employeeRepository.findById(id).stream()
+                        .map(EmployeeDTO::fromEmployee)
+                        .collect(Collectors.toList());
+
+        return optionalEmployeeDTO;
     }
 
     @Override
-    public List<Employee> getEmployeeById(int id) {
-        return employeeRepository.getEmployeeById(id);
+    public void deleteEmployeeById(Integer id) {
+         employeeRepository.deleteById(id);
     }
 
     @Override
-    public List<Employee> deleteEmployeeById(int id) {
-        return employeeRepository.deleteEmployeeById(id);
+    public List<EmployeeDTO> getAllEmployeesWithSalaryHigherThan(int salary) {
+        return employeeRepository.getAllEmployeesWithSalaryHigherThan(salary).stream()
+                .map(EmployeeDTO::fromEmployee)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Employee> getAllEmployeesWithSalaryHigherThan(int salary) {
-        return employeeRepository.getAllEmployeesWithSalaryHigherThan(salary);
+    public List<EmployeeDTO> getAllEmployeesWithMatchingPosition(String position) {
+        return employeeRepository.getAllEmployeesWithMatchingPosition(position).stream()
+                .map(EmployeeDTO::fromEmployee)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EmployeeDTO> getEmployeeFullInfo(int id) {
+        return employeeRepository.findById(id).stream()
+                .map(EmployeeDTO::fromEmployee)
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<EmployeeDTO> getEmployeesInPageFormat(int page) {
+        return employeeRepository.findAll(PageRequest.of(page, 10)).stream()
+                .map(EmployeeDTO::fromEmployee)
+                .collect(Collectors.toList());
     }
 
 }
