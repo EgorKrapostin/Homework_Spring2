@@ -29,4 +29,8 @@ public interface EmployeeService {
     List<EmployeeDTO> getAllEmployeesWithSalaryHigherThan(int salary);
 
     List<EmployeeDTO> getAllEmployeesWithMatchingPosition(String position);
+
+    List<EmployeeDTO> getEmployeeFullInfo(int id);
+
+    List<EmployeeDTO> getEmployeesInPageFormat(int page);
 }

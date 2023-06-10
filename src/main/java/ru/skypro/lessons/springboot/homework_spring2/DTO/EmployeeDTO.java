@@ -1,25 +1,26 @@
 package ru.skypro.lessons.springboot.homework_spring2.DTO;
 
 import ru.skypro.lessons.springboot.homework_spring2.model.Employee;
+import ru.skypro.lessons.springboot.homework_spring2.model.Position;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class EmployeeDTO {
 
-    private Integer id;
     private String name;
     private int salary;
-    private int positionId;
-
+    private String position;
 
     public static EmployeeDTO fromEmployee(Employee employee) {
 
         EmployeeDTO employeeDTO = new EmployeeDTO();
 
-        employeeDTO.setId(employee.getId());
         employeeDTO.setName(employee.getName());
         employeeDTO.setSalary(employee.getSalary());
-        employeeDTO.setPositionId(employee.getPositionId());
+        employeeDTO.setPosition(Optional.ofNullable(employee.getPosition())
+                .map(Position::getName).
+                orElse(null));
 
         return employeeDTO;
     }
@@ -28,19 +29,10 @@ public class EmployeeDTO {
 
         Employee employee = new Employee();
 
-        employee.setId(this.getId());
         employee.setName(this.getName());
         employee.setSalary(this.getSalary());
 
         return employee;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -59,11 +51,11 @@ public class EmployeeDTO {
         this.salary = salary;
     }
 
-    public int getPositionId() {
-        return positionId;
+    public String getPosition() {
+        return position;
     }
 
-    public void setPositionId(int positionId) {
-        this.positionId = positionId;
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

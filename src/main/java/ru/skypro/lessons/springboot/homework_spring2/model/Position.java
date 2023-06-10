@@ -3,6 +3,7 @@ package ru.skypro.lessons.springboot.homework_spring2.model;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "position")
@@ -18,6 +19,7 @@ public class Position {
 
     public Position() {
     }
+
 
     public Integer getId() {
         return id;

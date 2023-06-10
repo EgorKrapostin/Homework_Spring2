@@ -2,9 +2,6 @@ package ru.skypro.lessons.springboot.homework_spring2.model;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
-import java.util.Set;
-
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -20,12 +17,12 @@ public class Employee {
     @Column(name = "salary")
     private int salary;
 
-    @Column(name = "position_id")
+    @Column(name = "position_id",insertable=false, updatable=false)
     private int positionId;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private Set<Position> position;
+    @ManyToOne()
+    @JoinColumn(name = "position_id")
+    private Position position;
 
     public Employee() {
     }
@@ -54,11 +51,11 @@ public class Employee {
         this.id = id;
     }
 
-    public Set<Position> getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setPosition(Set<Position> position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
@@ -69,4 +66,5 @@ public class Employee {
     public void setPositionId(int positionId) {
         this.positionId = positionId;
     }
+
 }

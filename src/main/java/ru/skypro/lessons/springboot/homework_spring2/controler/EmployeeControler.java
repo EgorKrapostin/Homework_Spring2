@@ -73,4 +73,16 @@ public class EmployeeControler {
 
         return employeeService.getAllEmployeesWithMatchingPosition(position);
     }
+
+    @GetMapping("/fullInfo{id}")
+    public List<EmployeeDTO> getEmployeeFullInfo(@PathVariable int id) {
+
+        return employeeService.getEmployeeFullInfo(id);
+    }
+
+    @GetMapping("/page")
+    public List<EmployeeDTO> getEmployeesInPageFormat(@RequestParam(required = false,defaultValue = "0") int page) {
+
+        return employeeService.getEmployeesInPageFormat(page);
+    }
 }

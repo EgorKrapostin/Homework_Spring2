@@ -1,5 +1,6 @@
 package ru.skypro.lessons.springboot.homework_spring2.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -8,7 +9,7 @@ import ru.skypro.lessons.springboot.homework_spring2.model.Employee;
 import java.util.List;
 import java.util.Optional;
 
-public interface EmployeeRepository extends CrudRepository<Employee,Integer> {
+public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
     @Query(value = "SELECT * FROM employee",
             nativeQuery = true)
@@ -37,10 +38,9 @@ public interface EmployeeRepository extends CrudRepository<Employee,Integer> {
     nativeQuery = true)
     List<Employee> getAllEmployeesWithSalaryHigherThan(@Param("salary") int salary);
 
-    @Query(value = "SELECT e.id,e.name, e.salary, e.positionId FROM Employee e "+
-            "INNER JOIN Position p " +
-            "ON e.positionId = p.id and p.name = :name")
-//    @Query(value = "select e.id,e.name, e.salary, e.positionId from Employee e " +
-//            "join e.positionId Position")
+    @Query(value = "SELECT employee.id, employee.name, employee.salary, employee.position_id FROM employee "+
+        "INNER JOIN position " +
+        "ON employee.position_id = position.id and position.name = :name",
+        nativeQuery = true)
     List<Employee> getAllEmployeesWithMatchingPosition(@Param("name") String name);
 }

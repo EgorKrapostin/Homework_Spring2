@@ -1,10 +1,12 @@
 package ru.skypro.lessons.springboot.homework_spring2.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.skypro.lessons.springboot.homework_spring2.model.Employee;
 import ru.skypro.lessons.springboot.homework_spring2.DTO.EmployeeDTO;
 import ru.skypro.lessons.springboot.homework_spring2.repository.EmployeeRepository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -85,6 +87,21 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public List<EmployeeDTO> getAllEmployeesWithMatchingPosition(String position) {
         return employeeRepository.getAllEmployeesWithMatchingPosition(position).stream()
+                .map(EmployeeDTO::fromEmployee)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EmployeeDTO> getEmployeeFullInfo(int id) {
+        return employeeRepository.findById(id).stream()
+                .map(EmployeeDTO::fromEmployee)
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<EmployeeDTO> getEmployeesInPageFormat(int page) {
+        return employeeRepository.findAll(PageRequest.of(page, 10)).stream()
                 .map(EmployeeDTO::fromEmployee)
                 .collect(Collectors.toList());
     }
