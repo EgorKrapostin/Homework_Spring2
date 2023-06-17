@@ -1,6 +1,7 @@
 package ru.skypro.lessons.springboot.homework_spring2.controler;
 
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -54,11 +55,13 @@ public class ReportControler {
     @GetMapping(value = "/reportPath/{id}")
     public ResponseEntity<Resource> getReportPathById(@PathVariable int id) throws FileNotFoundException {
 
+        String fileReport = "report.json";
+        String pathToReport = reportService.getReportPathById(id).get().getPath();
+        File file = new File(pathToReport);
+        Resource resource = new PathResource(file.getPath());
 
-        String json = reportService.getReportPathById(id).get().getPath();
-        Resource resource = new ByteArrayResource(json.getBytes());
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileReport + "\"")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .body(resource);
     }
