@@ -1,5 +1,7 @@
 package ru.skypro.lessons.springboot.homework_spring2.DTO;
 
+import ru.skypro.lessons.springboot.homework_spring2.model.ReportPath;
+
 public class ReportDTO {
     private String positionName;
     private Long count;
