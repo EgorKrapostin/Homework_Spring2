@@ -2,9 +2,11 @@ package ru.skypro.lessons.springboot.homework_spring2.model;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "employee")
-public class Employee {
+public class Employee implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,20 @@ public class Employee {
     private Position position;
 
     public Employee() {
+    }
+
+
+
+    public Employee(Integer id, String name, int salary, int positionId, Position position) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        this.positionId = positionId;
+        this.position = position;
+    }
+
+    public Employee(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
