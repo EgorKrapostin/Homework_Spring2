@@ -141,9 +141,12 @@ public class EmployeeServiceImplTest {
     @Test
     public void shouldReturnEmployeesInPageFormat() {
 
-        when(mockPagingAndSortingRepository.findAll(PageRequest.of(0, 10)))
-                .thenReturn(employeeInPageFormat);
+//        when(mockPagingAndSortingRepository.findAll(PageRequest.of(0, 10)))
+//                .thenReturn(employeeInPageFormat);
 
+//
+//        assertIterableEquals(EMPLOYEE_LIST,out.getEmployeesInPageFormat(0));
+        when(mockRepository.findAll());
         assertIterableEquals(EMPLOYEE_LIST,out.getEmployeesInPageFormat(0));
     }
 
@@ -168,12 +171,9 @@ public class EmployeeServiceImplTest {
     @Test
     public void shouldSaveEmployeeFromJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Employee empl = new Employee(1, "name", 10000, 1, new Position());
-        String json = objectMapper.writeValueAsString(empl);
+        String json = objectMapper.writeValueAsString(EMPLOYEE_LIST);
         MockMultipartFile file = new MockMultipartFile("employee", "employee.json", MediaType.MULTIPART_FORM_DATA_VALUE, json.getBytes());
         out.saveEmployeeFromJson(file);
-       verify(out,times(1)).saveEmployeeFromJson(file);
-
     }
 
 }

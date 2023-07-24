@@ -1,6 +1,5 @@
 package ru.skypro.lessons.springboot.homework_spring2.service;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -8,19 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.lessons.springboot.homework_spring2.controler.EmployeeControler;
 import ru.skypro.lessons.springboot.homework_spring2.model.Employee;
 import ru.skypro.lessons.springboot.homework_spring2.DTO.EmployeeDTO;
 import ru.skypro.lessons.springboot.homework_spring2.repository.EmployeeRepository;
 
-import java.awt.print.Pageable;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -124,11 +115,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<EmployeeDTO> getEmployeeFullInfo(int id) {
+    public Optional<EmployeeDTO> getEmployeeFullInfo(int id) {
         logger.debug("Full information about employee with id= "+id);
-        return employeeRepository.findById(id).stream()
-                .map(EmployeeDTO::fromEmployee)
-                .collect(Collectors.toList());
+//        return (EmployeeDTO) employeeRepository.findById(id).stream()
+//                .map(EmployeeDTO::fromEmployee)
+//                .collect(Collectors.toList());
+        Optional<EmployeeDTO> employeeDTO = employeeRepository.findById(id).stream().map(EmployeeDTO::fromEmployee).findFirst();
+        return employeeDTO;
 
     }
 
