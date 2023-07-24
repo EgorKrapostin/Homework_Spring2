@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
@@ -149,13 +150,19 @@ public class EmployeeServiceImplTest {
     @Test
     public void shouldReturnEmployeeFullInfo() {
 
-        List<Employee> list = EMPLOYEE_LIST;
-        list.stream()
-                .filter(employee -> employee.getId() ==1 )
-                .map(EmployeeDTO::fromEmployee)
-                .collect(Collectors.toList());
+//        List<Employee> list = EMPLOYEE_LIST;
+//        list.stream()
+//                .filter(employee -> employee.getId() ==1 )
+//                .map(EmployeeDTO::fromEmployee)
+//                .collect(Collectors.toList());
+//
+//       assertIterableEquals(list, mockRepository.findById(1).stream()
+//                .map(EmployeeDTO::fromEmployee)
+//                .collect(Collectors.toList()));
+        Optional<EmployeeDTO> empl = EMPLOYEE_LIST.stream().map(EmployeeDTO::fromEmployee).findFirst();
 
-        assertEquals(list,out.getEmployeeFullInfo(1));
+        when(mockRepository.findById(1)).thenReturn(Optional.of(employee));
+        assertEquals(empl,out.getEmployeeFullInfo(1));
     }
 
     @Test

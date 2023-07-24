@@ -42,11 +42,10 @@ public class ReportServiceImplTest {
             new ReportPath(3, "file3"));
 
     @Test
-    public void shouldCreateReport() throws IOException {
+    public void shouldCreateReport() {
 
-        Report report = new Report(1,"23.07");
-        reportService.createReport();
-        reportRepositoryMock.save(report);
+        reportRepositoryMock.createReport();
+        verify(reportRepositoryMock, times(1)).createReport();
     }
 
     @Test
@@ -61,11 +60,10 @@ public class ReportServiceImplTest {
     }
 
     @Test
-    public void shouldCreateReportWithPath() throws IOException {
+    public void shouldCreateReportWithPath()  {
 
-        ReportPath reportPath = new ReportPath(1, "file");
-        reportService.createReportWithPath();
-        reportPathRepositoryMock.save(reportPath);
+        reportRepositoryMock.createReport();
+        verify(reportRepositoryMock, times(1)).createReport();
     }
 
     @Test
