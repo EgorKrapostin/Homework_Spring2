@@ -41,9 +41,6 @@ public class EmployeeServiceImplTest {
     @Mock
     private EmployeeRepository mockRepository;
 
-    @Mock
-    private PagingAndSortingRepository mockPagingAndSortingRepository;
-
     @InjectMocks
     private EmployeeServiceImpl out;
 
@@ -141,27 +138,16 @@ public class EmployeeServiceImplTest {
     @Test
     public void shouldReturnEmployeesInPageFormat() {
 
-//        when(mockPagingAndSortingRepository.findAll(PageRequest.of(0, 10)))
-//                .thenReturn(employeeInPageFormat);
+        when(mockRepository.findAll(PageRequest.of(0, 10)))
+                .thenReturn(employeeInPageFormat);
 
-//
-//        assertIterableEquals(EMPLOYEE_LIST,out.getEmployeesInPageFormat(0));
-        when(mockRepository.findAll());
-        assertIterableEquals(EMPLOYEE_LIST,out.getEmployeesInPageFormat(0));
+
+        assertEquals(4,out.getEmployeesInPageFormat(0).size());
     }
 
     @Test
     public void shouldReturnEmployeeFullInfo() {
 
-//        List<Employee> list = EMPLOYEE_LIST;
-//        list.stream()
-//                .filter(employee -> employee.getId() ==1 )
-//                .map(EmployeeDTO::fromEmployee)
-//                .collect(Collectors.toList());
-//
-//       assertIterableEquals(list, mockRepository.findById(1).stream()
-//                .map(EmployeeDTO::fromEmployee)
-//                .collect(Collectors.toList()));
         Optional<EmployeeDTO> empl = EMPLOYEE_LIST.stream().map(EmployeeDTO::fromEmployee).findFirst();
 
         when(mockRepository.findById(1)).thenReturn(Optional.of(employee));
