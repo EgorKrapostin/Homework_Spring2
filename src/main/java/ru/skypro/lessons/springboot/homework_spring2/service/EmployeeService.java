@@ -24,7 +24,7 @@ public interface EmployeeService {
 
     void updateEmployee(Employee employee);
 
-    List<EmployeeDTO>  getEmployeeById(Integer id);
+    Optional<EmployeeDTO>  getEmployeeById(Integer id);
 
     void deleteEmployeeById(Integer id);
 

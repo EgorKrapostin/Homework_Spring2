@@ -1,11 +1,14 @@
 package ru.skypro.lessons.springboot.homework_spring2.controler;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-
+import org.springframework.test.web.servlet.MvcResult;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -18,6 +21,9 @@ public class ReportControlerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    MvcResult result;
+
     @Test
     void createReportTest() throws Exception {
         mockMvc.perform(post("/report/"))
@@ -27,7 +33,8 @@ public class ReportControlerTest {
 
     @Test
     void getReportByIdTest() {
-
+        byte[] resourceContent = result.getResponse().getContentAsByteArray();
+        assertThat(resourceContent).isNotEmpty();
     }
 
     @Test
@@ -39,6 +46,7 @@ public class ReportControlerTest {
 
     @Test
     void getReportPathByIdTest() {
-
+        byte[] resourceContent = result.getResponse().getContentAsByteArray();
+        assertThat(resourceContent).isNotEmpty();
     }
 }

@@ -77,22 +77,25 @@ public class EmployeeControlerTest {
 
     @Test
     void getEmployeeByIdTest() throws Exception {
-        mockMvc.perform(get("/employee/salary/getBy{id}"))
+        Integer ID = 5;
+        mockMvc.perform(get("/employee/salary/getBy/id" + ID))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray());
+                .andExpect(jsonPath("$").exists());
     }
 
     @Test
     void getAllEmployeesWithMatchingPositionTest() throws Exception {
-        mockMvc.perform(get("/employee/salary/getBy{id}"))
+        mockMvc.perform(get("/employee/position"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
 
     @Test
     void getEmployeeFullInfoTest() throws Exception {
-        mockMvc.perform(get("/employee/fullInfo{id}"))
-                .andExpect(status().isOk());
+        Integer ID = 5;
+        mockMvc.perform(get("/employee/fullInfo/id" + ID))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").exists());
     }
 
     @Test

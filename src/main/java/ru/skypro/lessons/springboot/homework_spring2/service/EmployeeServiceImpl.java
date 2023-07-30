@@ -80,13 +80,12 @@ public class EmployeeServiceImpl implements EmployeeService{
         logger.debug("Employee updated " + employee);
     }
 
-    public List<EmployeeDTO> getEmployeeById(Integer id) {
+    public Optional<EmployeeDTO> getEmployeeById(Integer id) {
 
-        List<EmployeeDTO>
-                optionalEmployeeDTO =
-                employeeRepository.findById(id).stream()
-                        .map(EmployeeDTO::fromEmployee)
-                        .collect(Collectors.toList());
+        Optional<EmployeeDTO> optionalEmployeeDTO = employeeRepository.findById(id)
+                .stream()
+                .map(EmployeeDTO::fromEmployee)
+                .findFirst();
         logger.debug("Employee with id= "+id);
 
         return optionalEmployeeDTO;
