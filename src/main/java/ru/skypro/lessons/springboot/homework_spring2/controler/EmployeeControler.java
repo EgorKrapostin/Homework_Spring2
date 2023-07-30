@@ -1,17 +1,12 @@
 package ru.skypro.lessons.springboot.homework_spring2.controler;
 
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.lessons.springboot.homework_spring2.model.Employee;
 import ru.skypro.lessons.springboot.homework_spring2.DTO.EmployeeDTO;
 import ru.skypro.lessons.springboot.homework_spring2.service.EmployeeService;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +15,7 @@ import java.util.Optional;
 public class EmployeeControler {
 
     private final EmployeeService employeeService;
+    private static final Logger logger = LoggerFactory.getLogger(EmployeeControler.class);
 
     public EmployeeControler(EmployeeService employeeService) {
         this.employeeService = employeeService;
@@ -67,7 +63,7 @@ public class EmployeeControler {
     }
 
     @GetMapping("/fullInfo{id}")
-    public List<EmployeeDTO> getEmployeeFullInfo(@PathVariable int id) {
+    public Optional<EmployeeDTO> getEmployeeFullInfo(@PathVariable int id) {
 
         return employeeService.getEmployeeFullInfo(id);
     }
@@ -76,5 +72,10 @@ public class EmployeeControler {
     public List<EmployeeDTO> getEmployeesInPageFormat(@RequestParam(required = false, defaultValue = "0") int page) {
 
         return employeeService.getEmployeesInPageFormat(page);
+    }
+
+    @PostMapping("/add")
+    public void addEmployee(@RequestBody Employee employee) {
+        employeeService.addEmployee(employee);
     }
 }

@@ -17,6 +17,11 @@ public class ReportPath implements Serializable {
     public ReportPath() {
     }
 
+    public ReportPath(int id, String filePath) {
+        this.id = id;
+        this.filePath = filePath;
+    }
+
     public int getId() {
         return id;
     }

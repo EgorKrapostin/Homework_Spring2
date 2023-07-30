@@ -9,11 +9,15 @@ public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Column(name = "data")
     private String data;
 
     public Report() {
+    }
+
+    public Report(Integer id, String data) {
+        this.id = id;
+        this.data = data;
     }
 
     public Integer getId() {
