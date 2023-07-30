@@ -21,7 +21,6 @@ public class ReportControlerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
     MvcResult result;
 
     @Test
