@@ -27,20 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Testcontainers
 public class EmployeeControlerTest {
-
-    @Container
-    private static final PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:13")
-            .withUsername("postgres")
-            .withPassword("postgres");
-
-    @DynamicPropertySource
-    static void postgresProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", container::getJdbcUrl);
-        registry.add("spring.datasource.username", container::getUsername);
-        registry.add("spring.datasource.password", container::getPassword);
-    }
 
     @Autowired
     private MockMvc mockMvc;
