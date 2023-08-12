@@ -38,6 +38,12 @@ public class Employee implements Serializable {
         this.positionId = positionId;
         this.position = position;
     }
+    public Employee(Integer id, String name, int salary,int positionId) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        this.positionId = positionId;
+    }
 
     public Employee(Integer id) {
         this.id = id;
