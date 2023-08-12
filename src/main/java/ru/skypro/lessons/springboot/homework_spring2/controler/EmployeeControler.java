@@ -46,8 +46,8 @@ public class EmployeeControler {
         return employeeService.getAllEmployeesWithSalaryHigherThenAvg();
     }
 
-    @GetMapping("/getBy{id}")
-    public List<EmployeeDTO> getEmployeeById(@PathVariable Integer id) {
+    @GetMapping("/getBy/{id}")
+    public Optional<EmployeeDTO> getEmployeeById(@PathVariable Integer id) {
         return employeeService.getEmployeeById(id);
     }
 
@@ -62,7 +62,7 @@ public class EmployeeControler {
         return employeeService.getAllEmployeesWithMatchingPosition(position);
     }
 
-    @GetMapping("/fullInfo{id}")
+    @GetMapping("/fullInfo/{id}")
     public Optional<EmployeeDTO> getEmployeeFullInfo(@PathVariable int id) {
 
         return employeeService.getEmployeeFullInfo(id);
@@ -72,10 +72,5 @@ public class EmployeeControler {
     public List<EmployeeDTO> getEmployeesInPageFormat(@RequestParam(required = false, defaultValue = "0") int page) {
 
         return employeeService.getEmployeesInPageFormat(page);
-    }
-
-    @PostMapping("/add")
-    public void addEmployee(@RequestBody Employee employee) {
-        employeeService.addEmployee(employee);
     }
 }
