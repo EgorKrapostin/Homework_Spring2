@@ -60,7 +60,7 @@ public class AdminEmployeeControlerTest {
     @Test
     void deleteEmployeeTest() throws Exception {
         Integer ID = 5;
-        mockMvc.perform(delete("/admin/employee/deleteBy/id" + ID))
+        mockMvc.perform(delete("/admin/employee/deleteBy/id/" + ID))
                 .andExpect(status().isOk());
     }
 

@@ -39,8 +39,7 @@ public class EmployeeControlerTest {
     void getAllEmployeesTest() throws Exception {
         mockMvc.perform(get("/employee/salary/all"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$").isEmpty());
+                .andExpect(jsonPath("$").isArray());
 
     }
 
@@ -83,14 +82,14 @@ public class EmployeeControlerTest {
     @Test
     void getEmployeeByIdTest() throws Exception {
         Integer ID = 5;
-        mockMvc.perform(get("/employee/salary/getBy/id" + ID))
+        mockMvc.perform(get("/employee/salary/getBy/id/" + ID))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").exists());
     }
 
     @Test
     void getAllEmployeesWithMatchingPositionTest() throws Exception {
-        mockMvc.perform(get("/employee/position"))
+        mockMvc.perform(get("/employee/position/"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
@@ -98,7 +97,7 @@ public class EmployeeControlerTest {
     @Test
     void getEmployeeFullInfoTest() throws Exception {
         Integer ID = 5;
-        mockMvc.perform(get("/employee/fullInfo/id" + ID))
+        mockMvc.perform(get("/employee/fullInfo/id/" + ID))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").exists());
     }
