@@ -20,6 +20,7 @@ import ru.skypro.lessons.springboot.homework_spring2.repository.EmployeeReposito
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -58,7 +59,8 @@ public class AdminEmployeeControlerTest {
 
     @Test
     void deleteEmployeeTest() throws Exception {
-        mockMvc.perform(delete("/admin/employee/deleteBy{id}"))
+        Integer ID = 5;
+        mockMvc.perform(delete("/admin/employee/deleteBy/id" + ID))
                 .andExpect(status().isOk());
     }
 
