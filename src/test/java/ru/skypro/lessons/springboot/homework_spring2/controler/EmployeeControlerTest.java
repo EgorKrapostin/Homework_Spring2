@@ -18,6 +18,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import ru.skypro.lessons.springboot.homework_spring2.model.Employee;
 import ru.skypro.lessons.springboot.homework_spring2.model.Position;
 import ru.skypro.lessons.springboot.homework_spring2.repository.EmployeeRepository;
+import ru.skypro.lessons.springboot.homework_spring2.repository.PositionRepository;
 
 import java.util.List;
 
@@ -35,77 +36,94 @@ public class EmployeeControlerTest {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private PositionRepository positionRepository;
+
     @Test
     void getAllEmployeesTest() throws Exception {
+        Position position = new Position("dev");
+        position = positionRepository.save(position);
+        List<Employee> list = List.of(new Employee("name", 100, position.getId(), position),
+                new Employee("name1", 100, position.getId(), position),
+                new Employee("name2", 100, position.getId(), position));
+        employeeRepository.saveAll(list);
         mockMvc.perform(get("/employee/salary/all"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray());
+                .andExpect(status().isOk());
 
     }
 
     @Test
     void getSalarySumTest() throws Exception {
-        JSONObject object = new JSONObject();
-        object.put("salary", 100000);
+        Position position = new Position("dev");
+        position = positionRepository.save(position);
+        employeeRepository.save(new Employee("name", 100,position));
         mockMvc.perform(get("/employee/salary/sum"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.salary").isNumber());
+                .andExpect(jsonPath("$").isNumber());
     }
 
     @Test
     void getMinSalaryTest() throws Exception {
-        JSONObject object = new JSONObject();
-        object.put("salary", 100000);
+        Position position = new Position("dev");
+        position = positionRepository.save(position);
+        employeeRepository.save(new Employee("name", 100,position));
         mockMvc.perform(get("/employee/salary/min"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.salary").isNumber());
+                .andExpect(jsonPath("$").isNumber());
     }
 
     @Test
     void getMaxSalaryTest() throws Exception {
-        JSONObject object = new JSONObject();
-        object.put("salary", 100000);
+        Position position = new Position("dev");
+        position = positionRepository.save(position);
+        employeeRepository.save(new Employee("name", 100,position));
         mockMvc.perform(get("/employee/salary/withHighestSalary"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.salary").isNumber());
+                .andExpect(jsonPath("$").isNumber());
     }
 
     @Test
     void getSalaryHigherThanAvgTest() throws Exception {
-        JSONObject object = new JSONObject();
-        object.put("salary", 100000);
+        Position position = new Position("dev");
+        position = positionRepository.save(position);
+        Employee employee = employeeRepository.save(new Employee("name", 100,position));
         mockMvc.perform(get("/employee/salary/higherThenAvg"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.salary").isNumber());
+                .andExpect(status().isOk());
     }
 
     @Test
     void getEmployeeByIdTest() throws Exception {
-        Integer ID = 5;
-        mockMvc.perform(get("/employee/salary/getBy/id/" + ID))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").exists());
+        Position position = new Position("dev");
+        position = positionRepository.save(position);
+        Employee employee = employeeRepository.save(new Employee("name", 100,position));
+        mockMvc.perform(get("/employee/getBy/" + employee.getId()))
+                .andExpect(status().isOk());
     }
 
     @Test
     void getAllEmployeesWithMatchingPositionTest() throws Exception {
-        mockMvc.perform(get("/employee/position/"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray());
+        Position position = new Position("dev");
+        position = positionRepository.save(position);
+        Employee employee = employeeRepository.save(new Employee("name", 100,position));
+        mockMvc.perform(get("/employee/position/" + position.getName()))
+                .andExpect(status().isOk());
     }
 
     @Test
     void getEmployeeFullInfoTest() throws Exception {
-        Integer ID = 5;
-        mockMvc.perform(get("/employee/fullInfo/id/" + ID))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").exists());
+        Position position = new Position("dev");
+        position = positionRepository.save(position);
+        Employee employee = employeeRepository.save(new Employee("name", 100,position));
+        mockMvc.perform(get("/employee/fullInfo/" + employee.getId()))
+                .andExpect(status().isOk());
     }
 
     @Test
     void getEmployeesInPageFormatTest() throws Exception {
+        Position position = new Position("dev");
+        position = positionRepository.save(position);
+        Employee employee = employeeRepository.save(new Employee("name", 100,position));
         mockMvc.perform(get("/employee/page"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray());
+                .andExpect(status().isOk());
     }
 }

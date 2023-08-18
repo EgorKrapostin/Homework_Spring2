@@ -19,7 +19,7 @@ public class Employee implements Serializable {
     @Column(name = "salary")
     private int salary;
 
-    @Column(name = "position_id",insertable=false, updatable=false)
+    @Column(name = "position_id",insertable=false, updatable=false,nullable = true)
     private int positionId;
 
     @ManyToOne()
@@ -28,8 +28,6 @@ public class Employee implements Serializable {
 
     public Employee() {
     }
-
-
 
     public Employee(Integer id, String name, int salary, int positionId, Position position) {
         this.id = id;
@@ -43,6 +41,25 @@ public class Employee implements Serializable {
         this.name = name;
         this.salary = salary;
         this.positionId = positionId;
+    }
+
+    public Employee(Integer id, String name, int salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public Employee(String name, int salary, Position position) {
+        this.name = name;
+        this.salary = salary;
+        this.position = position;
+    }
+
+    public Employee(String name, int salary, int positionId, Position position) {
+        this.name = name;
+        this.salary = salary;
+        this.positionId = positionId;
+        this.position = position;
     }
 
     public Employee(Integer id) {

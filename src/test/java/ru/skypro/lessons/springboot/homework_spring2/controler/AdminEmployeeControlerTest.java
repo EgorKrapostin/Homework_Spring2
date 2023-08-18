@@ -15,7 +15,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import ru.skypro.lessons.springboot.homework_spring2.model.Employee;
+import ru.skypro.lessons.springboot.homework_spring2.model.Position;
 import ru.skypro.lessons.springboot.homework_spring2.repository.EmployeeRepository;
+import ru.skypro.lessons.springboot.homework_spring2.repository.PositionRepository;
 
 import java.util.List;
 
@@ -32,6 +34,9 @@ public class AdminEmployeeControlerTest {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private PositionRepository positionRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -59,14 +64,16 @@ public class AdminEmployeeControlerTest {
 
     @Test
     void deleteEmployeeTest() throws Exception {
-        Integer ID = 5;
-        mockMvc.perform(delete("/admin/employee/deleteBy/id/" + ID))
+        Position position = new Position("dev");
+        position = positionRepository.save(position);
+        Employee employee = employeeRepository.save(new Employee("name", 100,position));
+        mockMvc.perform(delete("/admin/employee/deleteBy/" + employee.getId()))
                 .andExpect(status().isOk());
     }
 
     @Test
     void uploadTest() throws Exception {
-        List<Employee> list = List.of(new Employee(1, "name", 10000, 1));
+        List<Employee> list = List.of(new Employee(1, "name", 10000));
         String json = objectMapper.writeValueAsString(list);
         MockMultipartFile file = new MockMultipartFile("rep", json.getBytes());
         mockMvc.perform(multipart("/admin/employee/upload")
