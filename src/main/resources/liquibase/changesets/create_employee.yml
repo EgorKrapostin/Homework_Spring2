@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1 # идентификатор набора изменений
+      id: 5 # идентификатор набора изменений
       author: dev# имя разработчика, который добавил набор изменений
       changes: # список изменений в этом наборе
         - createTable: # команда liquibase — создает таблицу
@@ -22,6 +22,4 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-              - column:
-                  name: position_id
-                  type: int
+

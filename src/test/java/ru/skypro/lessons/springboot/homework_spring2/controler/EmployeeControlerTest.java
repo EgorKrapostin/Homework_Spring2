@@ -43,9 +43,9 @@ public class EmployeeControlerTest {
     void getAllEmployeesTest() throws Exception {
         Position position = new Position("dev");
         position = positionRepository.save(position);
-        List<Employee> list = List.of(new Employee("name", 100, position.getId(), position),
-                new Employee("name1", 100, position.getId(), position),
-                new Employee("name2", 100, position.getId(), position));
+        List<Employee> list = List.of(new Employee("name", 100, position),
+                new Employee("name1", 100,  position),
+                new Employee("name2", 100,  position));
         employeeRepository.saveAll(list);
         mockMvc.perform(get("/employee/salary/all"))
                 .andExpect(status().isOk());

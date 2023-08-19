@@ -124,16 +124,16 @@ public class EmployeeServiceImplTest {
         assertIterableEquals(list,mockRepository.getAllEmployeesWithSalaryHigherThan(salary));
     }
 
-    @Test
-    public void shouldReturnAllEmployeesWithMatchingPosition() {
-        Integer position = 1;
-
-        List<Employee> list = EMPLOYEE_LIST.stream()
-                .filter(employee -> employee.getPositionId() == position)
-                .toList();
-
-        assertIterableEquals(list,mockRepository.getAllEmployeesWithMatchingPosition(position.toString()));
-    }
+//    @Test
+//    public void shouldReturnAllEmployeesWithMatchingPosition() {
+//        Integer position = 1;
+//
+//        List<Employee> list = EMPLOYEE_LIST.stream()
+//                .filter(employee -> employee.getPositionId() == position)
+//                .toList();
+//
+//        assertIterableEquals(list,mockRepository.getAllEmployeesWithMatchingPosition(position.toString()));
+//    }
 
     @Test
     public void shouldReturnEmployeesInPageFormat() {
