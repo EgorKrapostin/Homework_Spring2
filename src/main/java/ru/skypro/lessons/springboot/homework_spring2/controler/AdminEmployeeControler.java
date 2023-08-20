@@ -33,7 +33,7 @@ public class AdminEmployeeControler {
         employeeService.updateEmployee(employee);
     }
 
-    @DeleteMapping("/deleteBy{id}")
+    @DeleteMapping("/deleteBy/{id}")
     public void deleteEmployeeById(@PathVariable Integer id) {
         employeeService.deleteEmployeeById(id);
     }

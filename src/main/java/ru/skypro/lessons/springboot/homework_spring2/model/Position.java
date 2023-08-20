@@ -20,6 +20,14 @@ public class Position {
     public Position() {
     }
 
+    public Position(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Position(String name) {
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;
