@@ -105,7 +105,8 @@ public class EmployeeControlerTest {
         Position position = new Position("dev");
         position = positionRepository.save(position);
         Employee employee = employeeRepository.save(new Employee("name", 100,position));
-        mockMvc.perform(get("/employee/position/" + position.getName()))
+        mockMvc.perform(get("/employee/position")
+                        .param("position", "dev"))
                 .andExpect(status().isOk());
     }
 
